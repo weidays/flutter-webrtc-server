@@ -47,7 +47,7 @@ export default class Signaling extends events.EventEmitter {
             };
         }
         var twilioIceServers = [
-            { url: 'stun:global.stun.twilio.com:3478?transport=udp' }
+            { url: 'stun:apprtc.52buddha.com:3478?transport=udp' }
         ];
 
         configuration = { "iceServers": [{ "url": "stun:stun.l.google.com:19302" }] };
@@ -127,6 +127,7 @@ export default class Signaling extends events.EventEmitter {
                 .then(function (mediaStream) {
                     pResolve(mediaStream);
                 }).catch((err) => {
+                    alert("当前设备没有摄像头，请更换设备再试");
                     console.log(err.name + ": " + err.message);
                     pReject(err);
                 }
