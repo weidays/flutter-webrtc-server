@@ -7,7 +7,7 @@
     "start": "npm-run-all --parallel run-server run-webpack-dev-server",
     "test": "echo \"Error: no test specified\" && exit 1",
     "run-server": "node server/index.js",
-    "run-webpack-dev-server": "webpack-dev-server --mode development --http --hot --inline --progress --colors --watch --compress --content-base ./dist  --port 8086 --host 0.0.0.0 --open --public apprtc.52buddha.com:8087",
+    "run-webpack-dev-server": "webpack-dev-server --mode development --http --hot --inline --progress --colors --watch --compress --content-base ./dist  --port 8086 --host 0.0.0.0 --open",
     "build": "webpack --mode production --progress --colors --config ./webpack.config.js"
   },
   "repository": {
