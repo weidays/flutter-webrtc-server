@@ -76,7 +76,7 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-    var url = 'wss://' + window.location.hostname + ':4443';
+    var url = 'ws://' + window.location.hostname + ':4442';
     this.signaling = new Signaling(url, "WebApp");
     this.signaling.on('peers',(peers, self) => {
       this.setState({peers, self_id: self});
