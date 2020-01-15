@@ -50,7 +50,7 @@ export default class Signaling extends events.EventEmitter {
             { url: 'stun:apprtc.52buddha.com:3478?transport=udp' }
         ];
 //5349
-        configuration = { "iceServers": [{ "url": "stun:apprtc.52buddha.com:3478" },{username: "mlmall", credential: "123456", urls: ["stun:apprtc.52buddha.com:3478"]}] };
+        configuration = { "iceServers": [{ "url": "stun:apprtc.52buddha.com:3478" },{username: "mlmall", credential: "1234567890", urls: ["stun:apprtc.52buddha.com:3478"]}] };
 
         // iceServers: [{url: "stun:stun.l.google.com:19302"},{url: "stun:custom.stun.server:12345"},{username: "User1", credential: "Password1", urls: ["turn:custom.turn.server1:1234"]}, {username: "User2", credential: "Password2", urls: ["turn:custom.turn.server2:1234"]}],
 
