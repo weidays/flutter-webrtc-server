@@ -57,7 +57,7 @@ export default class Signaling extends events.EventEmitter {
             this.socket = new WebSocket(this.url);
         this.socket.onopen = () => {
             console.log("wss connect success...");
-            this.self_id = this.getRandomUserId();
+            this.self_id = this.getUserId();
             let message = {
                 type: 'new',
                 user_agent: browser.name + '/' + browser.version,
@@ -121,6 +121,8 @@ export default class Signaling extends events.EventEmitter {
         console.log('Sent keepalive ' + ++this.keepalive_cnt + ' times!');
     }
 
+
+
     getLocalStream = (type) => {
         return new Promise((pResolve, pReject) => {
             var constraints = { audio: true, video: (type === 'video') ? { width: 1280, height: 720 } : false };
@@ -138,12 +140,39 @@ export default class Signaling extends events.EventEmitter {
     }
 
     // 获取6位随机id
-    getRandomUserId() {
-        var num = "";
-        for (var i = 0; i < 6; i++) {
-            num += Math.floor(Math.random() * 10);
+    getUserId() {
+        // var num = "";
+        // for (var i = 0; i < 6; i++) {
+        //     num += Math.floor(Math.random() * 10);
+        // }
+        // return num;
+        if(this.getQueryVariable("userId")){
+            return this.getQueryVariable("userId")
+        }else{
+            var num = "";
+            for (var i = 0; i < 6; i++) {
+                num += Math.floor(Math.random() * 10);
+            }
+            return num;
         }
-        return num;
+    }
+    getSessionId(peer_id) {
+        if(this.getQueryVariable("orderNo")){
+            return this.getQueryVariable("orderNo")
+        }else{
+            return  this.self_id + '-' + peer_id;
+        }
+    }
+
+    getQueryVariable(variable)
+    {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+            var pair = vars[i].split("=");
+            if(pair[0] == variable){return pair[1];}
+        }
+        return(false);
     }
 
     send = (data) => {
@@ -151,7 +180,7 @@ export default class Signaling extends events.EventEmitter {
     }
 
     invite = (peer_id, media) => {
-        this.session_id = this.self_id + '-' + peer_id;
+        this.session_id = this.getSessionId(peer_id);
         this.getLocalStream(media).then((stream) => {
             this.local_stream = stream;
             this.createPeerConnection(peer_id, media, true, stream);
