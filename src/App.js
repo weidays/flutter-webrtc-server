@@ -198,18 +198,18 @@ class App extends Component {
                                     <div key={peer.id}>
                                         <ListItem button>
                                             <ListItemText
-                                                primary={peer.name + '  [' + peer.user_agent + ']' + (peer.id === this.state.self_id ? ' (Yourself)' : '')}
+                                                primary={peer.name + '  [' + peer.user_agent + ']' + (peer.id === this.state.self_id ? ' (你自己)' : '')}
                                                 secondary={(peer.id === this.state.self_id ? 'self' : 'peer') + '-id: ' + peer.id}/>
                                             {peer.id !== this.state.self_id &&
                                             <div>
                                                 <IconButton color="primary"
                                                             onClick={() => this.handleInvitePeer(peer.id, 'audio')}
-                                                            className={classes.button} aria-label="Make a voice call.">
+                                                            className={classes.button} aria-label="语音通话.">
                                                     <CallIcon/>
                                                 </IconButton>
                                                 <IconButton color="primary"
                                                             onClick={() => this.handleInvitePeer(peer.id, 'video')}
-                                                            className={classes.button} aria-label="Make a video call.">
+                                                            className={classes.button} aria-label="视讯通话.">
                                                     <VideoCamIcon/>
                                                 </IconButton>
                                             </div>
