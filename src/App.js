@@ -67,6 +67,7 @@ class App extends Component {
         this.state = {
             peers: [],
             self_id: null,
+            member_id:null,
             open: false,
             localStream: null,
             remoteStream: null,
@@ -78,6 +79,7 @@ class App extends Component {
     componentDidMount = () => {
         var url = 'wss://' + window.location.hostname + ':4443';
         var name = "WebApp"
+        var member_id ="U000"
         var query = window.location.search.substring(1);
         var vars = query.split("&");
         for (var i=0;i<vars.length;i++) {
@@ -85,10 +87,13 @@ class App extends Component {
             if(pair[0] == "name"){
                 name = decodeURI(pair[1]);
             }
+            if(pair[0] == "memberId"){
+                member_id = decodeURI(pair[1]);
+            }
         }
         this.signaling = new Signaling(url, name);
         this.signaling.on('peers', (peers, self) => {
-            this.setState({peers, self_id: self});
+            this.setState({peers, self_id: self,member_id:member_id});
         });
 
         this.signaling.on('new_call', (from, sessios) => {
@@ -194,30 +199,32 @@ class App extends Component {
                     <List>
                         {
                             this.state.peers.map((peer, i) => {
-                                return (
-                                    <div key={peer.id}>
-                                        <ListItem button>
-                                            <ListItemText
-                                                primary={peer.name + '('+peer.session_id+') '}
-                                                secondary={(peer.id === this.state.self_id ? 'self' : 'peer') + '-id: ' + peer.id+ '[' + peer.user_agent + ']' + (peer.id === this.state.self_id ? ' (你自己)' : '')}/>
-                                            {peer.id !== this.state.self_id &&
-                                            <div>
-                                                <IconButton color="primary"
-                                                            onClick={() => this.handleInvitePeer(peer.id, 'audio')}
-                                                            className={classes.button} aria-label="语音通话.">
-                                                    <CallIcon/>
-                                                </IconButton>
-                                                <IconButton color="primary"
-                                                            onClick={() => this.handleInvitePeer(peer.id, 'video')}
-                                                            className={classes.button} aria-label="视讯通话.">
-                                                    <VideoCamIcon/>
-                                                </IconButton>
-                                            </div>
-                                            }
-                                        </ListItem>
-                                        <Divider/>
-                                    </div>
-                                )
+                                if(peer.id == this.state.member_id) {
+                                    return (
+                                        <div key={peer.id}>
+                                            <ListItem button>
+                                                <ListItemText
+                                                    primary={peer.name + '(' + peer.session_id + ') '}
+                                                    secondary={(peer.id === this.state.self_id ? 'self' : 'peer') + '-id: ' + peer.id + '[' + peer.user_agent + ']' + (peer.id === this.state.self_id ? ' (你自己)' : '')}/>
+                                                {peer.id !== this.state.self_id &&
+                                                <div>
+                                                    <IconButton color="primary"
+                                                                onClick={() => this.handleInvitePeer(peer.id, 'audio')}
+                                                                className={classes.button} aria-label="语音通话.">
+                                                        <CallIcon/>
+                                                    </IconButton>
+                                                    <IconButton color="primary"
+                                                                onClick={() => this.handleInvitePeer(peer.id, 'video')}
+                                                                className={classes.button} aria-label="视讯通话.">
+                                                        <VideoCamIcon/>
+                                                    </IconButton>
+                                                </div>
+                                                }
+                                            </ListItem>
+                                            <Divider/>
+                                        </div>
+                                    )
+                                }
                             })
                         }
                     </List>
