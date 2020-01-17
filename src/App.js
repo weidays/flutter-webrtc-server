@@ -67,9 +67,9 @@ class App extends Component {
         this.state = {
             peers: [],
             self_id: null,
-            my_count:0,
-            retListItems:null,
-            member_id:null,
+            my_count: 0,
+            retListItems: null,
+            member_id: null,
             open: false,
             localStream: null,
             remoteStream: null,
@@ -81,21 +81,21 @@ class App extends Component {
     componentDidMount = () => {
         var url = 'wss://' + window.location.hostname + ':4443';
         var name = "WebApp"
-        var member_id ="U000"
+        var member_id = "U000"
         var query = window.location.search.substring(1);
         var vars = query.split("&");
-        for (var i=0;i<vars.length;i++) {
+        for (var i = 0; i < vars.length; i++) {
             var pair = vars[i].split("=");
-            if(pair[0] == "name"){
+            if (pair[0] == "name") {
                 name = decodeURI(pair[1]);
             }
-            if(pair[0] == "memberId"){
+            if (pair[0] == "memberId") {
                 member_id = decodeURI(pair[1]);
             }
         }
         this.signaling = new Signaling(url, name);
         this.signaling.on('peers', (peers, self) => {
-            this.setState({peers, self_id: self,member_id:member_id});
+            this.setState({peers, self_id: self, member_id: member_id});
         });
 
         this.signaling.on('new_call', (from, sessios) => {
@@ -188,7 +188,7 @@ class App extends Component {
         const retListItems = [];
         this.state.peers.map((peer, i) => {
             if (peer.id == this.state.member_id) {
-                retListItems.push (
+                retListItems.push(
                     <div key={peer.id}>
                         <ListItem button>
                             <ListItemText
@@ -214,7 +214,7 @@ class App extends Component {
                 )
             }
         });
-        if (this.state.my_count==0){
+        if (retListItems.length == 0) {
             retListItems.push(
                 <div key="noConnection">
                     <ListItem button>
@@ -241,7 +241,7 @@ class App extends Component {
                         </Toolbar>
                     </AppBar>
                     <List>
-                        { retListItems }
+                        {retListItems}
                     </List>
 
                     <Dialog
