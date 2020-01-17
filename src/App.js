@@ -198,8 +198,10 @@ class App extends Component {
                     </AppBar>
                     <List>
                         {
+                            var count=0;
                             this.state.peers.map((peer, i) => {
                                 if(peer.id == this.state.member_id) {
+                                    count ++;
                                     return (
                                         <div key={peer.id}>
                                             <ListItem button>
@@ -226,6 +228,18 @@ class App extends Component {
                                     )
                                 }
                             })
+                            if (count==0){
+                                return (
+                                    <div key="noConnection">
+                                    <ListItem button>
+                                    <ListItemText
+                                    primary='此订单用户还没有打开App'
+                                    secondary='请稍等'/>
+                                    </ListItem>
+                                    <Divider/>
+                                    </div>
+                                )
+                            }
                         }
                     </List>
                     <Dialog
