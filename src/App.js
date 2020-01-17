@@ -83,7 +83,7 @@ class App extends Component {
         for (var i=0;i<vars.length;i++) {
             var pair = vars[i].split("=");
             if(pair[0] == "name"){
-                name = pair[1];
+                name = decodeURI(pair[1]);
             }
         }
         this.signaling = new Signaling(url, name);
