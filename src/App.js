@@ -68,6 +68,7 @@ class App extends Component {
             peers: [],
             self_id: null,
             my_count:0,
+            retListItems:null,
             member_id:null,
             open: false,
             localStream: null,
@@ -199,7 +200,8 @@ class App extends Component {
                     </AppBar>
                     {
                         () => {
-                            const retListItems = (
+                            this.state.retListItems = null;
+                            this.state.retListItems = (
                                 this.state.peers.map((peer, i) => {
                                     if (peer.id == this.state.member_id) {
                                         this.state.my_count++;
@@ -231,7 +233,7 @@ class App extends Component {
                                 })
                             );
                             if (this.state.my_count==0){
-                                retListItems.push(
+                                this.state.retListItems.push(
                                     <div key="noConnection">
                                         <ListItem button>
                                             <ListItemText
@@ -243,7 +245,7 @@ class App extends Component {
                                 )
                             }
                             return (
-                                <List>{ retListItems }</List>
+                                <List>{ this.state.retListItems }</List>
                             )
                         }
                     }
