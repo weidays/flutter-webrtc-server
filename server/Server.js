@@ -126,6 +126,7 @@ export default class CallHandler {
                 case 'new':
                     {
                         client_self.id = "" + message.id;
+                        client_self.session_id = "" + message.session_id;
                         client_self.name = message.name;
                         client_self.user_agent = message.user_agent;
                         this.updatePeers();
