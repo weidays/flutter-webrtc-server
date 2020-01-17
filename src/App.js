@@ -214,7 +214,7 @@ class App extends Component {
                 )
             }
         });
-        if (retListItems.length == 0) {
+        if (retListItems.length === 0) {
             retListItems.push(
                 <div key="noConnection">
                     <ListItem button>
