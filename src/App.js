@@ -229,18 +229,18 @@ class App extends Component {
                                         )
                                     }
                                 })
-                                if (this.state.my_count==0){
-                                    return (
-                                        <div key="noConnection">
-                                            <ListItem button>
-                                                <ListItemText
-                                                    primary='此订单用户还没有打开App'
-                                                    secondary='请稍等'/>
-                                            </ListItem>
-                                            <Divider/>
-                                        </div>
-                                    )
-                                }
+                                // if (this.state.my_count==0){
+                                //     return (
+                                //         <div key="noConnection">
+                                //             <ListItem button>
+                                //                 <ListItemText
+                                //                     primary='此订单用户还没有打开App'
+                                //                     secondary='请稍等'/>
+                                //             </ListItem>
+                                //             <Divider/>
+                                //         </div>
+                                //     )
+                                // }
                             }
                         }
                     </List>
