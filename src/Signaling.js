@@ -58,8 +58,10 @@ export default class Signaling extends events.EventEmitter {
         this.socket.onopen = () => {
             console.log("wss connect success...");
             this.self_id = this.getUserId();
+            this.session_id = this.getSessionId();
             let message = {
                 type: 'new',
+                session_id : this.session_id,
                 user_agent: browser.name + '/' + browser.version,
                 name: this.name,
                 id: this.self_id,
