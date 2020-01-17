@@ -215,7 +215,7 @@ class App extends Component {
             }
         });
         if (this.state.my_count==0){
-            this.state.retListItems.push(
+            retListItems.push(
                 <div key="noConnection">
                     <ListItem button>
                         <ListItemText
