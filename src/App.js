@@ -197,9 +197,9 @@ class App extends Component {
                             {/*<Button color="inherit">Join</Button>*/}
                         </Toolbar>
                     </AppBar>
-                    <List>
-                        {
-                            () => {
+                    {
+                        () => {
+                            var retListItems = (
                                 this.state.peers.map((peer, i) => {
                                     if(peer.id == this.state.member_id) {
                                         this.state.my_count ++;
@@ -229,21 +229,71 @@ class App extends Component {
                                         )
                                     }
                                 })
-                                // if (this.state.my_count==0){
-                                //     return (
-                                //         <div key="noConnection">
-                                //             <ListItem button>
-                                //                 <ListItemText
-                                //                     primary='此订单用户还没有打开App'
-                                //                     secondary='请稍等'/>
-                                //             </ListItem>
-                                //             <Divider/>
-                                //         </div>
-                                //     )
-                                // }
+                            )
+                            if (this.state.my_count==0){
+                                retListItems.push(
+                                    <div key="noConnection">
+                                        <ListItem button>
+                                            <ListItemText
+                                                primary='此订单用户还没有打开App'
+                                                secondary='请稍等'/>
+                                        </ListItem>
+                                        <Divider/>
+                                    </div>
+                                )
                             }
+                            return (
+                                <List>{ retListItems }</List>
+                            )
                         }
-                    </List>
+                    }
+                    {/*<List>*/}
+                    {/*    {*/}
+                    {/*        () => {*/}
+                    {/*            this.state.peers.map((peer, i) => {*/}
+                    {/*                if(peer.id == this.state.member_id) {*/}
+                    {/*                    this.state.my_count ++;*/}
+                    {/*                    return (*/}
+                    {/*                        <div key={peer.id}>*/}
+                    {/*                            <ListItem button>*/}
+                    {/*                                <ListItemText*/}
+                    {/*                                    primary={peer.name + '(' + peer.session_id + ') '}*/}
+                    {/*                                    secondary={(peer.id === this.state.self_id ? 'self' : 'peer') + '-id: ' + peer.id + '[' + peer.user_agent + ']' + (peer.id === this.state.self_id ? ' (你自己)' : '')}/>*/}
+                    {/*                                {peer.id !== this.state.self_id &&*/}
+                    {/*                                <div>*/}
+                    {/*                                    <IconButton color="primary"*/}
+                    {/*                                                onClick={() => this.handleInvitePeer(peer.id, 'audio')}*/}
+                    {/*                                                className={classes.button} aria-label="语音通话.">*/}
+                    {/*                                        <CallIcon/>*/}
+                    {/*                                    </IconButton>*/}
+                    {/*                                    <IconButton color="primary"*/}
+                    {/*                                                onClick={() => this.handleInvitePeer(peer.id, 'video')}*/}
+                    {/*                                                className={classes.button} aria-label="视讯通话.">*/}
+                    {/*                                        <VideoCamIcon/>*/}
+                    {/*                                    </IconButton>*/}
+                    {/*                                </div>*/}
+                    {/*                                }*/}
+                    {/*                            </ListItem>*/}
+                    {/*                            <Divider/>*/}
+                    {/*                        </div>*/}
+                    {/*                    )*/}
+                    {/*                }*/}
+                    {/*            })*/}
+                    {/*            // if (this.state.my_count==0){*/}
+                    {/*            //     return (*/}
+                    {/*            //         <div key="noConnection">*/}
+                    {/*            //             <ListItem button>*/}
+                    {/*            //                 <ListItemText*/}
+                    {/*            //                     primary='此订单用户还没有打开App'*/}
+                    {/*            //                     secondary='请稍等'/>*/}
+                    {/*            //             </ListItem>*/}
+                    {/*            //             <Divider/>*/}
+                    {/*            //         </div>*/}
+                    {/*            //     )*/}
+                    {/*            // }*/}
+                    {/*        }*/}
+                    {/*    }*/}
+                    {/*</List>*/}
                     <Dialog
                         fullScreen
                         open={this.state.open}
